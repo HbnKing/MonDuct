@@ -1,5 +1,6 @@
 package com.github.hbnking.config;
 
+import com.github.hbnking.sync.SyncLevel;
 import com.github.hbnking.sync.SyncMode;
 import lombok.Data;
 import org.slf4j.Logger;
@@ -14,6 +15,8 @@ public class AppConfig {
     private static final Logger logger = LoggerFactory.getLogger(AppConfig.class);
 
 
+    // 同步级别
+    private SyncLevel  syncLevel ;
     // 同步模式，默认为 full
     private SyncMode syncMode ;
     // 源 MongoDB 连接 URI
