@@ -1,6 +1,7 @@
 package com.github.hbnking.sync;
 
 import com.github.hbnking.config.AppConfig;
+import com.github.hbnking.datasource.MongoDBDataSource;
 import com.github.hbnking.model.OplogEntry;
 import com.github.hbnking.buffer.DisruptorBuffer;
 import com.github.hbnking.buffer.PartitionStrategy;
@@ -33,6 +34,15 @@ public class ChangeStreamSync {
 
     public ChangeStreamSync(AppConfig config, DisruptorBuffer disruptorBuffer, FilterUtils filterUtils,
                             PartitionStrategy partitionStrategy) {
+        this.config = config;
+        this.disruptorBuffer = disruptorBuffer;
+        this.filterUtils = filterUtils;
+        this.partitionStrategy = partitionStrategy;
+        this.executorService = Executors.newSingleThreadExecutor();
+    }
+
+    public ChangeStreamSync(AppConfig config, MongoDBDataSource sourceDataSource, DisruptorBuffer disruptorBuffer, FilterUtils filterUtils, PartitionStrategy partitionStrategy) {
+
         this.config = config;
         this.disruptorBuffer = disruptorBuffer;
         this.filterUtils = filterUtils;

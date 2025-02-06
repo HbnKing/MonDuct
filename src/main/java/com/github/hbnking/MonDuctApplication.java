@@ -40,27 +40,12 @@ public class MonDuctApplication {
 
         DisruptorWriter disruptorWriter = new DisruptorWriter(appConfig, disruptorBuffer);
 
-        FullSync fullSync = new FullSync(appConfig,new MongoDBDataSource(appConfig.getSourceUri()),disruptorBuffer,filterUtils,partitionStrategy);
-
-
-        OplogSync oplogSync = new OplogSync(appConfig,new MongoDBDataSource(appConfig.getSourceUri()),disruptorBuffer,filterUtils,partitionStrategy);
-
-        ChangeStreamSync changeStreamSync = new ChangeStreamSync(appConfig, disruptorBuffer, filterUtils, partitionStrategy);
-
-        // 创建线程管理器实例
-        ThreadManager threadManager = new ThreadManager(appConfig,fullSync,null ,null ,null);
+        ThreadManager threadManager = new ThreadManager(appConfig, new MongoDBDataSource(appConfig.getSourceUri()), disruptorBuffer, filterUtils, partitionStrategy);
+        threadManager.startSyncTask();
 
 
 
-        threadManager.startFullSync();
 
-
-
-        // 启动不同的同步任务
-     /*   threadManager.startDisruptorWriter();
-        threadManager.startFullSync();
-        threadManager.startOplogSync();
-        threadManager.startChangeStreamSync();*/
 
 
         // 注册关闭钩子，确保应用程序关闭时能正确释放资源

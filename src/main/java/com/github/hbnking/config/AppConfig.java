@@ -1,5 +1,6 @@
 package com.github.hbnking.config;
 
+import com.github.hbnking.sync.SyncMode;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +13,9 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
     private static final Logger logger = LoggerFactory.getLogger(AppConfig.class);
 
+
     // 同步模式，默认为 full
-    private String syncMode = "full";
+    private SyncMode syncMode ;
     // 源 MongoDB 连接 URI
     private String sourceUri;
     // 目标 MongoDB 连接 URI
