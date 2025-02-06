@@ -96,27 +96,73 @@ com.github.hbnking
 ### 4.1 配置文件
 在 `application.properties` 或 `application.yml` 中配置 MongoDB 同步的相关参数，示例如下：
 ```properties
-mongodb.sync.syncMode=full
-mongodb.sync.sourceUri=mongodb://source_host:port
-mongodb.sync.targetUri=mongodb://target_host:port
-mongodb.sync.bufferSize=10000
-mongodb.sync.readThreads=4
-mongodb.sync.writeThreads=4
-mongodb.sync.shouldSyncIndexes=true
-mongodb.sync.monitorEnabled=true
-mongodb.sync.monitorInterval=5000
-mongodb.sync.delaySync=0
-mongodb.sync.syncDdl=false
-mongodb.sync.syncIndexAfter60Percent=true
-mongodb.sync.multiTableParallel=true
+# ================== Spring Boot  ==================
+
+server.port=8080
+
+# ================== MongoDB  ==================
+# ? MongoDB  URI
+mongodb.sync.source-uri=mongodb://localhost:27000/source_db
+#  MongoDB  URI
+mongodb.sync.target-uri=mongodb://localhost:27011/target_db
+
+# ================== ? ==================
+# : full, oplog, change_stream, full_oplog, full_stream
+mongodb.sync.sync-mode=full
+#  sync-mode  full 
+mongodb.sync.full-sync=true
+#  Disruptor 
+mongodb.sync.buffer-size= 16384
+# ?
+mongodb.sync.read-threads=4
+# ?
+mongodb.sync.write-threads=4
+# 
+mongodb.sync.should-sync-indexes=true
+#  DDL 
+mongodb.sync.sync-ddl=false
+#  60% 
+mongodb.sync.sync-index-after-60-percent=true
+# 
+mongodb.sync.multi-table-parallel=true
+#  Disruptor 
 mongodb.sync.disruptorCount=8
-mongodb.sync.fullSync=true
-mongodb.sync.includeDatabases=db1,db2
-mongodb.sync.excludeDatabases=
-mongodb.sync.includeTables=table1,table2
-mongodb.sync.excludeTables=
+
+# ==================  ==================
+
+mongodb.sync.include-databases=
+
+mongodb.sync.exclude-databases=
+# 
+mongodb.sync.include-tables=
+# 
+mongodb.sync.exclude-tables=
+# 
 mongodb.sync.namespaces=
-mongodb.sync.regexNamespaces=
+# 
+mongodb.sync.regex-namespaces=
+
+# ==================  ==================
+#  JMX 
+mongodb.sync.monitor-enabled=true
+# 
+mongodb.sync.monitor-interval=5000
+
+# ==================  ==================
+# 
+mongodb.sync.delay-sync=0
+
+# ==================  ==================
+# 
+mongodb.sync.max-retries=3
+# 
+mongodb.sync.retry-delay=2000
+
+# ==================  ==================
+# 
+mongodb.sync.data-verification-enabled=false
+# 
+mongodb.sync.data-verification-interval=60000
 mongodb.sync.maxRetries=3
 mongodb.sync.retryDelay=2000
 mongodb.sync.dataVerificationEnabled=false
